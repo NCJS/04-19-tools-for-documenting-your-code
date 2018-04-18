@@ -1,0 +1,265 @@
+{
+    "project": {
+        "name": "NCJS JSDoc",
+        "description": "a short talk about documentation",
+        "version": "1.0.0",
+        "url": "http://notyet.com/"
+    },
+    "files": {
+        "b.js": {
+            "name": "b.js",
+            "modules": {},
+            "classes": {
+                "Polygon": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "c.js": {
+            "name": "c.js",
+            "modules": {},
+            "classes": {},
+            "fors": {},
+            "namespaces": {
+                "secret": 1
+            }
+        },
+        "index.js": {
+            "name": "index.js",
+            "modules": {},
+            "classes": {},
+            "fors": {},
+            "namespaces": {}
+        }
+    },
+    "modules": {},
+    "classes": {
+        "Polygon": {
+            "name": "Polygon",
+            "shortname": "Polygon",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "file": "b.js",
+            "line": 12,
+            "description": "constructs a Polygon"
+        }
+    },
+    "elements": {},
+    "classitems": [
+        {
+            "file": "b.js",
+            "line": 1,
+            "description": "multiplies by 10",
+            "params": [
+                {
+                    "name": "a",
+                    "description": "a number",
+                    "type": "Number"
+                }
+            ],
+            "return": {
+                "description": "x10",
+                "type": "Number"
+            },
+            "example": [
+                " test(20) = 200"
+            ],
+            "class": "Polygon"
+        },
+        {
+            "file": "b.js",
+            "line": 19,
+            "description": "Creates an instance of Polygon.",
+            "params": [
+                {
+                    "name": "height",
+                    "description": "- height of Polygon",
+                    "type": "Number"
+                },
+                {
+                    "name": "width",
+                    "description": "- width of Polygon",
+                    "type": "Number"
+                }
+            ],
+            "memberof": "Polygon",
+            "class": "Polygon"
+        },
+        {
+            "file": "b.js",
+            "line": 31,
+            "description": "console.logs greeting",
+            "params": [
+                {
+                    "name": "text",
+                    "description": "- part of greeting",
+                    "type": "String"
+                }
+            ],
+            "memberof": "Polygon",
+            "class": "Polygon"
+        },
+        {
+            "file": "b.js",
+            "line": 41,
+            "description": "lorem ipsum ....",
+            "memberof": "Polygon",
+            "class": "Polygon"
+        },
+        {
+            "file": "c.js",
+            "line": 1,
+            "typedef": "{number|string} Numberlike: Number in *number* of *string*  <b>format</b>",
+            "class": ""
+        },
+        {
+            "file": "c.js",
+            "line": 5,
+            "description": "Secret",
+            "class": "",
+            "namespace": "secret"
+        },
+        {
+            "file": "c.js",
+            "line": 10,
+            "description": "50/50 it's a string",
+            "return": {
+                "description": "",
+                "type": "Numberlike"
+            },
+            "class": "",
+            "namespace": "secret"
+        },
+        {
+            "file": "c.js",
+            "line": 22,
+            "description": "bar",
+            "params": [
+                {
+                    "name": "title",
+                    "description": "Your preferred title",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "elaborate title",
+                "type": "String"
+            },
+            "class": "",
+            "namespace": "secret"
+        },
+        {
+            "file": "c.js",
+            "line": 33,
+            "global": "",
+            "typedef": "{Object}  StationVisit     - StationVisit complete station visit with date, notes and results",
+            "itemtype": "property",
+            "name": "{Results}  results        - actual data gathered",
+            "type": "String",
+            "class": "",
+            "namespace": "secret"
+        },
+        {
+            "file": "index.js",
+            "line": 15,
+            "description": "Returns a simple greeting, default is 'Good Morning'",
+            "params": [
+                {
+                    "name": "name",
+                    "description": "Name of a Person",
+                    "type": "String"
+                },
+                {
+                    "name": "evening",
+                    "description": "",
+                    "type": "Boolean",
+                    "optional": true,
+                    "optdefault": "false"
+                }
+            ],
+            "return": {
+                "description": "greeting - nice greeting being returned",
+                "type": "String"
+            },
+            "class": "",
+            "namespace": "secret"
+        }
+    ],
+    "warnings": [
+        {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " b.js:1"
+        },
+        {
+            "message": "unknown tag: memberof",
+            "line": " b.js:19"
+        },
+        {
+            "message": "unknown tag: memberof",
+            "line": " b.js:31"
+        },
+        {
+            "message": "unknown tag: memberof",
+            "line": " b.js:41"
+        },
+        {
+            "message": "unknown tag: typedef",
+            "line": " c.js:1"
+        },
+        {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " c.js:10"
+        },
+        {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " c.js:22"
+        },
+        {
+            "message": "unknown tag: typedef",
+            "line": " c.js:33"
+        },
+        {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " index.js:15"
+        },
+        {
+            "message": "Missing item type\nmultiplies by 10",
+            "line": " b.js:1"
+        },
+        {
+            "message": "Missing item type\nCreates an instance of Polygon.",
+            "line": " b.js:19"
+        },
+        {
+            "message": "Missing item type\nconsole.logs greeting",
+            "line": " b.js:31"
+        },
+        {
+            "message": "Missing item type\nlorem ipsum ....",
+            "line": " b.js:41"
+        },
+        {
+            "message": "Missing item type",
+            "line": " c.js:1"
+        },
+        {
+            "message": "Missing item type\nSecret",
+            "line": " c.js:5"
+        },
+        {
+            "message": "Missing item type\n50/50 it's a string",
+            "line": " c.js:10"
+        },
+        {
+            "message": "Missing item type\nbar",
+            "line": " c.js:22"
+        },
+        {
+            "message": "Missing item type\nReturns a simple greeting, default is 'Good Morning'",
+            "line": " index.js:15"
+        }
+    ]
+}

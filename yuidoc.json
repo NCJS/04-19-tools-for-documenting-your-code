@@ -1,0 +1,14 @@
+{
+  "name": "NCJS JSDoc",
+  "description": "a short talk about documentation",
+  "version": "",
+  "url": "http://notyet.com/",
+  "options": {
+    "linkNatives": "true",
+    "attributesEmit": "true",
+    "selleck": "true",
+    "ignorePaths": ["simpleyui"],
+    "paths": ["*.js"],
+    "outdir": "./yuidocs"
+  }
+}

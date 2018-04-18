@@ -1,0 +1,1086 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="initial-scale=1">
+<title>jsdoc-talk-ncjs 1.0.0</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
+<style>
+
+input[type="search"]::-webkit-search-cancel-button {
+    -webkit-appearance: searchfield-cancel-button;
+}
+
+.jumbotron {
+    margin-bottom: 0;
+    border-radius: 0;
+    background-color: #2B303E;
+    -webkit-font-smoothing: antialiased;
+}
+
+.jumbotron h1 {
+    font-size: 3.5rem;
+    line-height: 1;
+}
+
+.jumbotron h1,
+.jumbotron h1 a {
+    color: #eee;
+}
+
+.jumbotron small {
+    font-weight: 200;
+    color: #777;
+}
+
+.jumbotron p {
+    font-size: 1.5rem;
+    font-weight: 200;
+    line-height: 1.2;
+    color: #ccc;
+}
+
+.wrap {
+    padding: 2rem 1rem;
+}
+
+.search {
+    margin: 0 0 1rem 0;
+    width: 90%;
+}
+
+.menu {
+    padding: 0;
+}
+
+.menu li {
+    list-style: none;
+}
+
+.menu li ul {
+    padding: 0;
+}
+
+.menu li a {
+    display: block;
+    padding: .25rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.menu .file {
+    color: #E54D89;
+}
+
+.menu .file + ul {
+    margin: 0 0 1rem 0;
+}
+
+.menu .scope-private a {
+    color: #8BAAC6;
+}
+
+.method {
+    margin: 0 0 4rem 0;
+}
+
+.method .method-name {
+    display: inline-block;
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.method .method-name + .scope-private {
+    color: #AAAAAA;
+}
+
+.method section {
+    margin: 2rem 0;
+}
+
+.method h3 {
+    margin: 0 0 1rem 0;
+}
+
+.method .table,
+.method .table p,
+.method .table ol,
+.method .table ul {
+    margin: 0;
+}
+
+.permalink {
+    position: absolute;
+    margin-left: -1em;
+    font-weight: normal;
+    color: #eee;
+    text-decoration: none;
+}
+
+.permalink:hover {
+    color: #E54D89;
+}
+
+.back-to-top {
+    display: none;
+    position: fixed;
+    right: 1rem;
+    bottom: 1rem;
+    padding: .5rem .6rem;
+    line-height: 1;
+    background: #fff;
+    z-index: 999;
+}
+
+.back-to-top.visible {
+    display: block;
+}
+
+.back-to-top svg {
+    vertical-align: middle;
+}
+
+.bs-footer {
+    margin: 3rem auto;
+    color: #777;
+    text-align: center;
+}
+
+</style>
+</head>
+
+<body>
+
+<a href="#" class="back-to-top"><svg xmlns="http://www.w3.org/2000/svg" width="13px" height="14px" viewBox="0 0 13 14"><path d="M7.18761156,13 L7.18761156,5.49249703 L10.4587853,5.49249703 L5.09931763,0.113558129 L-0.26015,5.49249703 L3.01102371,5.49249703 L3.01102371,13 L7.18761156,13 Z" fill="#428bca"></path></svg> Back to Top</a>
+
+<div class="jumbotron">
+
+    <div class="container">
+
+        <h1>
+                jsdoc-talk-ncjs
+            <small>1.0.0</small>
+        </h1>
+
+        
+
+    </div>
+
+</div>
+
+<div class="wrap">
+
+    <div class="container">
+
+        <div class="row">
+
+            <div class="col-md-3 hidden-sm hidden-xs">
+
+                <input type="search" class="form-control search" id="search-methods" placeholder="Search..." autocomplete="off">
+
+                <ul class="menu">
+
+
+                    <li>
+                        <a href="#a.js" class="file"><b>a.js</b></a>
+                        <ul>
+
+
+                        <li class="method-link scope-public">
+                            <a href="#a.js-joinarr" title="joinArr">joinArr</a>
+                        </li>
+
+
+                        <li class="method-link scope-public">
+                            <a href="#a.js-dayingerman" title="dayInGerman">dayInGerman</a>
+                        </li>
+
+
+                        </ul>
+
+                    </li>
+
+
+                    <li>
+                        <a href="#b.js" class="file"><b>b.js</b></a>
+                        <ul>
+
+
+                        <li class="method-link scope-public">
+                            <a href="#b.js-times10" title="times10">times10</a>
+                        </li>
+
+
+                        <li class="method-link scope-public">
+                            <a href="#b.js-new-polygon" title="new Polygon">new Polygon</a>
+                        </li>
+
+
+                        <li class="method-link scope-public">
+                            <a href="#b.js-polygon.prototype.constructor" title="Polygon.constructor">Polygon.constructor</a>
+                        </li>
+
+
+                        <li class="method-link scope-public">
+                            <a href="#b.js-polygon.prototype.sayname" title="Polygon.sayName">Polygon.sayName</a>
+                        </li>
+
+
+                        <li class="method-link scope-public">
+                            <a href="#b.js-polygon.prototype.sayhistory" title="Polygon.sayHistory">Polygon.sayHistory</a>
+                        </li>
+
+
+                        </ul>
+
+                    </li>
+
+
+                    <li>
+                        <a href="#c.js" class="file"><b>c.js</b></a>
+                        <ul>
+
+
+                        <li class="method-link scope-public">
+                            <a href="#c.js-secret" title="secret">secret</a>
+                        </li>
+
+
+                        <li class="method-link scope-public">
+                            <a href="#c.js-foo" title="foo">foo</a>
+                        </li>
+
+
+                        <li class="method-link scope-public">
+                            <a href="#c.js-bar" title="bar">bar</a>
+                        </li>
+
+
+                        </ul>
+
+                    </li>
+
+
+                    <li>
+                        <a href="#index.js" class="file"><b>index.js</b></a>
+                        <ul>
+
+
+                        <li class="method-link scope-public">
+                            <a href="#index.js-greeting" title="greeting">greeting</a>
+                        </li>
+
+
+                        </ul>
+
+                    </li>
+
+
+                </ul>
+
+            </div>
+
+            <div class="col-md-9">
+
+
+                <a id="a.js"></a>
+
+
+                    <div class="method scope-public">
+
+                        <h2 id="a.js-joinarr">
+                            <a href="#a.js-joinarr" class="permalink">#</a>
+                            <span class="method-name" title="joinArr(arr1, arr2)">joinArr(arr1, arr2)</span>
+                        </h2>
+
+                        <div class="description lead">
+
+                            <p>Joins 2 arrays</p>
+
+
+                        </div>
+
+
+                        <section class="parameters">
+
+                            <h3>Parameters</h3>
+
+                            <div class="table-responsive">
+                                <table class="table">
+
+                                    <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Type</th>
+                                            <th>Description</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+
+                                    <tbody>
+                                    <tr>
+                                        <td>arr1</td>
+                                        <td>
+                                            <code>Array.&lt;number&gt;</code>
+                                        </td>
+                                        <td><p>first array is of numbers only!</p>
+</td>
+                                        <td>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>arr2</td>
+                                        <td>
+                                            <code>Array.&lt;string&gt;</code>
+                                        </td>
+                                        <td><p>second array contains only strings</p>
+</td>
+                                        <td>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+
+                                </table>
+                            </div>
+
+                        </section>
+
+
+
+
+                        <section class="returns">
+
+                            <h3>Returns</h3>
+
+
+
+                                    <p>
+                                            <code>Array</code>
+                                    </p>
+
+                                    <p>joined array</p>
+
+
+
+
+                        </section>
+
+                    </div>
+
+
+                    <div class="method scope-public">
+
+                        <h2 id="a.js-dayingerman">
+                            <a href="#a.js-dayingerman" class="permalink">#</a>
+                            <span class="method-name" title="dayInGerman(date)">dayInGerman(date)</span>
+                        </h2>
+
+                        <div class="description lead">
+
+                            <p>Returns the name of day in German</p>
+
+
+                        </div>
+
+
+                        <section class="parameters">
+
+                            <h3>Parameters</h3>
+
+                            <div class="table-responsive">
+                                <table class="table">
+
+                                    <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Type</th>
+                                            <th>Description</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+
+                                    <tbody>
+                                    <tr>
+                                        <td>date</td>
+                                        <td>
+                                            <code>Date</code>
+                                            <code>String</code>
+                                            <code>Number</code>
+                                        </td>
+                                        <td><ul>
+<li>the given day</li>
+</ul>
+</td>
+                                        <td>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+
+                                </table>
+                            </div>
+
+                        </section>
+
+
+
+
+                        <section class="returns">
+
+                            <h3>Returns</h3>
+
+
+
+                                    <p>
+                                            <code>String</code>
+                                    </p>
+
+                                    <p>the day of week in German language</p>
+
+
+
+
+                        </section>
+
+                    </div>
+
+
+
+                <a id="b.js"></a>
+
+
+                    <div class="method scope-public">
+
+                        <h2 id="b.js-times10">
+                            <a href="#b.js-times10" class="permalink">#</a>
+                            <span class="method-name" title="times10(a)">times10(a)</span>
+                        </h2>
+
+                        <div class="description lead">
+
+                            <p>multiplies by 10</p>
+
+
+                        </div>
+
+
+                        <section class="parameters">
+
+                            <h3>Parameters</h3>
+
+                            <div class="table-responsive">
+                                <table class="table">
+
+                                    <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Type</th>
+                                            <th>Description</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+
+                                    <tbody>
+                                    <tr>
+                                        <td>a</td>
+                                        <td>
+                                            <code>number</code>
+                                        </td>
+                                        <td><p>a number</p>
+</td>
+                                        <td>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+
+                                </table>
+                            </div>
+
+                        </section>
+
+
+
+
+                        <section class="examples">
+
+                            <h3>Examples</h3>
+
+
+                                <pre><code class="hljs javascript">test(<span class="hljs-number">20</span>) = <span class="hljs-number">200</span></code></pre>
+
+
+                        </section>
+
+
+                        <section class="returns">
+
+                            <h3>Returns</h3>
+
+
+
+                                    <p>
+                                            <code>number</code>
+                                    </p>
+
+                                    <p>x10</p>
+
+
+
+
+                        </section>
+
+                    </div>
+
+
+                    <div class="method scope-public">
+
+                        <h2 id="b.js-new-polygon">
+                            <a href="#b.js-new-polygon" class="permalink">#</a>
+                            <span class="method-name" title="new Polygon()">new Polygon()</span>
+                        </h2>
+
+                        <div class="description lead">
+
+                            <p>constructs a Polygon</p>
+
+
+                        </div>
+
+
+
+
+                        <section class="returns">
+
+                            <h3>Returns</h3>
+
+
+                            <p><code>Void</code></p>
+
+
+                        </section>
+
+                    </div>
+
+
+                    <div class="method scope-public">
+
+                        <h2 id="b.js-polygon.prototype.constructor">
+                            <a href="#b.js-polygon.prototype.constructor" class="permalink">#</a>
+                            <span class="method-name" title="Polygon.constructor(height, width)">Polygon.constructor(height, width)</span>
+                        </h2>
+
+                        <div class="description lead">
+
+                            <p>Creates an instance of Polygon.</p>
+
+
+                        </div>
+
+
+                        <section class="parameters">
+
+                            <h3>Parameters</h3>
+
+                            <div class="table-responsive">
+                                <table class="table">
+
+                                    <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Type</th>
+                                            <th>Description</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+
+                                    <tbody>
+                                    <tr>
+                                        <td>height</td>
+                                        <td>
+                                            <code>Number</code>
+                                        </td>
+                                        <td><ul>
+<li>height of Polygon</li>
+</ul>
+</td>
+                                        <td>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>width</td>
+                                        <td>
+                                            <code>Number</code>
+                                        </td>
+                                        <td><ul>
+<li>width of Polygon</li>
+</ul>
+</td>
+                                        <td>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+
+                                </table>
+                            </div>
+
+                        </section>
+
+
+
+
+                        <section class="returns">
+
+                            <h3>Returns</h3>
+
+
+                            <p><code>Void</code></p>
+
+
+                        </section>
+
+                    </div>
+
+
+                    <div class="method scope-public">
+
+                        <h2 id="b.js-polygon.prototype.sayname">
+                            <a href="#b.js-polygon.prototype.sayname" class="permalink">#</a>
+                            <span class="method-name" title="Polygon.sayName(text)">Polygon.sayName(text)</span>
+                        </h2>
+
+                        <div class="description lead">
+
+                            <p>console.logs greeting</p>
+
+
+                        </div>
+
+
+                        <section class="parameters">
+
+                            <h3>Parameters</h3>
+
+                            <div class="table-responsive">
+                                <table class="table">
+
+                                    <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Type</th>
+                                            <th>Description</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+
+                                    <tbody>
+                                    <tr>
+                                        <td>text</td>
+                                        <td>
+                                            <code>string</code>
+                                        </td>
+                                        <td><ul>
+<li>part of greeting</li>
+</ul>
+</td>
+                                        <td>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+
+                                </table>
+                            </div>
+
+                        </section>
+
+
+
+
+                        <section class="returns">
+
+                            <h3>Returns</h3>
+
+
+                            <p><code>Void</code></p>
+
+
+                        </section>
+
+                    </div>
+
+
+                    <div class="method scope-public">
+
+                        <h2 id="b.js-polygon.prototype.sayhistory">
+                            <a href="#b.js-polygon.prototype.sayhistory" class="permalink">#</a>
+                            <span class="method-name" title="Polygon.sayHistory()">Polygon.sayHistory()</span>
+                        </h2>
+
+                        <div class="description lead">
+
+                            <p>console.logs more info</p>
+
+
+                        </div>
+
+
+
+
+                        <section class="returns">
+
+                            <h3>Returns</h3>
+
+
+                            <p><code>Void</code></p>
+
+
+                        </section>
+
+                    </div>
+
+
+
+                <a id="c.js"></a>
+
+
+                    <div class="method scope-public">
+
+                        <h2 id="c.js-secret">
+                            <a href="#c.js-secret" class="permalink">#</a>
+                            <span class="method-name" title="secret()">secret()</span>
+                        </h2>
+
+                        <div class="description lead">
+
+                            <p>Secret</p>
+
+
+                        </div>
+
+
+
+
+                        <section class="returns">
+
+                            <h3>Returns</h3>
+
+
+                            <p><code>Void</code></p>
+
+
+                        </section>
+
+                    </div>
+
+
+                    <div class="method scope-public">
+
+                        <h2 id="c.js-foo">
+                            <a href="#c.js-foo" class="permalink">#</a>
+                            <span class="method-name" title="foo()">foo()</span>
+                        </h2>
+
+                        <div class="description lead">
+
+                            <p>50/50 it's a string</p>
+
+
+                        </div>
+
+
+
+
+                        <section class="returns">
+
+                            <h3>Returns</h3>
+
+
+
+                                    <p>
+                                            <code>Numberlike</code>
+                                    </p>
+
+                                    
+
+
+
+                        </section>
+
+                    </div>
+
+
+                    <div class="method scope-public">
+
+                        <h2 id="c.js-bar">
+                            <a href="#c.js-bar" class="permalink">#</a>
+                            <span class="method-name" title="bar(title)">bar(title)</span>
+                        </h2>
+
+                        <div class="description lead">
+
+                            <p>bar</p>
+
+
+                        </div>
+
+
+                        <section class="parameters">
+
+                            <h3>Parameters</h3>
+
+                            <div class="table-responsive">
+                                <table class="table">
+
+                                    <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Type</th>
+                                            <th>Description</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+
+                                    <tbody>
+                                    <tr>
+                                        <td>title</td>
+                                        <td>
+                                            <code>string</code>
+                                        </td>
+                                        <td><p>Your preferred title</p>
+</td>
+                                        <td>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+
+                                </table>
+                            </div>
+
+                        </section>
+
+
+
+
+                        <section class="returns">
+
+                            <h3>Returns</h3>
+
+
+
+                                    <p>
+                                            <code>string</code>
+                                    </p>
+
+                                    <p>elaborate title</p>
+
+
+
+
+                        </section>
+
+                    </div>
+
+
+
+                <a id="index.js"></a>
+
+
+                    <div class="method scope-public">
+
+                        <h2 id="index.js-greeting">
+                            <a href="#index.js-greeting" class="permalink">#</a>
+                            <span class="method-name" title="greeting(name[, evening&#x3D;false])">greeting(name[, evening&#x3D;false])</span>
+                        </h2>
+
+                        <div class="description lead">
+
+                            <p>Returns a simple greeting, default is 'Good Morning'</p>
+
+
+                        </div>
+
+
+                        <section class="parameters">
+
+                            <h3>Parameters</h3>
+
+                            <div class="table-responsive">
+                                <table class="table">
+
+                                    <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Type</th>
+                                            <th>Description</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+
+                                    <tbody>
+                                    <tr>
+                                        <td>name</td>
+                                        <td>
+                                            <code>string</code>
+                                        </td>
+                                        <td><p>Name of a Person</p>
+</td>
+                                        <td>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>evening&#x3D;false</td>
+                                        <td>
+                                            <code>boolean</code>
+                                        </td>
+                                        <td></td>
+                                        <td>
+                                                <span class="tag tag-default">Optional</span>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+
+                                </table>
+                            </div>
+
+                        </section>
+
+
+
+
+                        <section class="returns">
+
+                            <h3>Returns</h3>
+
+
+
+                                    <p>
+                                            <code>string</code>
+                                    </p>
+
+                                    <p>greeting - nice greeting being returned</p>
+
+
+
+
+                        </section>
+
+                    </div>
+
+
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<footer class="bs-footer">
+
+    <div class="container">
+
+        <p>Documentation generated with <a href="https://github.com/neogeek/doxdox">doxdox</a>.</p>
+
+    </div>
+
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+<script>
+
+(function () {
+
+    'use strict';
+
+    var headerHeight = $('.jumbotron').outerHeight(true),
+        $backToTop = $('.back-to-top');
+
+    function handleScrollEvent() {
+
+        if (window.scrollY > headerHeight && $backToTop.not('.visible')) {
+
+            $backToTop.addClass('visible');
+
+        } else if (window.scrollY < headerHeight && $backToTop.is('.visible')) {
+
+            $backToTop.removeClass('visible');
+
+        }
+
+    }
+
+    $('pre code:not(.hljs)').each(function () {
+        hljs.highlightBlock(this);
+    });
+
+    var $searchInput = $('#search-methods');
+    var $methodLinks = $('.method-link');
+    var $methodNames = $('.method .method-name');
+
+    var urlQuery = window.location.search.match(/q=([^&]+)/);
+
+    $searchInput.on('keyup', function (e) {
+
+        var query = new RegExp(e.target.value.replace(' ', '|'), 'ig');
+
+        $methodLinks.each(function () {
+
+            var $this = $(this);
+
+            if (!$this.text().match(query)) {
+
+                $this.hide();
+
+            } else {
+
+                $this.show();
+
+            }
+
+        });
+
+        $methodNames.each(function () {
+
+            var $this = $(this);
+
+            if (!$this.text().match(query)) {
+
+                $this.closest('.method').hide();
+
+            } else {
+
+                $this.closest('.method').show();
+
+            }
+
+        });
+
+        window.history.replaceState({}, '', window.location.pathname + '?q=' + e.target.value);
+
+    });
+
+    $searchInput.on('search', function () {
+
+        $searchInput.trigger('keyup');
+
+    });
+
+    if (urlQuery && urlQuery.length > 1) {
+
+        $searchInput.val(urlQuery[1]).trigger('keyup');
+
+    }
+
+    $(window).on('scroll', handleScrollEvent);
+
+    handleScrollEvent();
+
+})();
+
+</script>
+
+</body>
+</html>

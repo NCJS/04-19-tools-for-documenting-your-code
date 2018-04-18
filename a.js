@@ -1,3 +1,5 @@
+import { getDay } from "date-fns";
+
 /**
  * Adding up
  * @description Adds up two numbers
@@ -21,4 +23,24 @@ export const sum = async (one, two) => {
  */
 export function joinArr(arr1, arr2) {
   return arr1.concat(arr2);
+}
+
+/**
+ *  Returns the name of day in German
+ *
+ * @export dayInGerman
+ * @param {Date|String|Number} date - the given day
+ * @returns {String} the day of week in German language
+ */
+export function dayInGerman(date) {
+  const day = getDay(date);
+  switch (day) {
+    case 0:
+      return "Montag";
+      break;
+    case 1:
+      return "Dienstag";
+    default:
+      return "Sonntag";
+  }
 }
