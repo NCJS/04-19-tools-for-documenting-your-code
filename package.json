@@ -9,6 +9,8 @@
     "doxdox-plugin-bootstrap": "^1.1.8",
     "doxme": "^1.8.2",
     "env": "^0.0.2",
+    "esdoc": "^1.0.4",
+    "esdoc-standard-plugin": "^1.0.0",
     "global": "^4.3.2",
     "ink-docstrap": "^1.3.2",
     "jsdoc": "^3.5.5",
@@ -24,18 +26,17 @@
   "scripts": {
     "babel-node": "babel-node --presets=env",
     "start": "nodemon --exec npm run  babel-node ./index.js",
-    "create-docs":
-      "rm -rf ./docs && jsdoc --configure jsdoc.config.json --destination ./docs ./README.md",
-    "create-doxdox":
-      "doxdox './**/*.js' --layout bootstrap --output doxs/index.html",
-    "create-doxs-md":
-      "doxdox './**/*.js' --layout markdown --output DOCUMENTATION.md",
+    "create-docs": "rm -rf ./docs && jsdoc --configure jsdoc.config.json --destination ./docs ./README.md",
+    "create-doxdox": "doxdox './**/*.js' --layout bootstrap --output doxs/index.html",
+    "create-doxs-md": "doxdox './**/*.js' --layout markdown --output DOCUMENTATION.md",
     "create-doxme": "dox -r < index.js | doxme --readme > DOXME_README.md",
-    "create-documentation-html":
-      "documentation build index.js -f html -o documentation",
-    "create-yuidocs": "yuidoc ."
+    "create-documentation-html": "documentation build index.js -f html -o documentation",
+    "create-yuidocs": "yuidoc .",
+    "create-esdoc": "esdoc"
   },
   "babel": {
-    "presets": ["env"]
+    "presets": [
+      "env"
+    ]
   }
 }

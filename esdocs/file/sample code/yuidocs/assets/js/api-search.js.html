@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <base data-ice="baseUrl" href="../../../../../">
+  <title data-ice="title">sample code/yuidocs/assets/js/api-search.js | jsdoc-talk-ncjs</title>
+  <link type="text/css" rel="stylesheet" href="css/style.css">
+  <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
+  <script src="script/prettify/prettify.js"></script>
+  <script src="script/manual.js"></script>
+</head>
+<body class="layout-container" data-ice="rootContainer">
+
+<header>
+  <a href="./">Home</a>
+  
+  <a href="identifiers.html">Reference</a>
+  <a href="source.html">Source</a>
+  
+  <div class="search-box">
+  <span>
+    <img src="./image/search.png">
+    <span class="search-input-edge"></span><input class="search-input"><span class="search-input-edge"></span>
+  </span>
+    <ul class="search-result"></ul>
+  </div>
+</header>
+
+<nav class="navigation" data-ice="nav"><div>
+  <ul>
+    
+  <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-dayInGerman">dayInGerman</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-joinArr">joinArr</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-sum">sum</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-times10">times10</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-Numberlike:">Numberlike:</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-StationVisit">StationVisit</a></span></span></li>
+</ul>
+</div>
+</nav>
+
+<div class="content" data-ice="content"><h1 data-ice="title">sample code/yuidocs/assets/js/api-search.js</h1>
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">YUI.add(&apos;api-search&apos;, function (Y) {
+
+var Lang   = Y.Lang,
+    Node   = Y.Node,
+    YArray = Y.Array;
+
+Y.APISearch = Y.Base.create(&apos;apiSearch&apos;, Y.Base, [Y.AutoCompleteBase], {
+    // -- Public Properties ----------------------------------------------------
+    RESULT_TEMPLATE:
+        &apos;&lt;li class=&quot;result {resultType}&quot;&gt;&apos; +
+            &apos;&lt;a href=&quot;{url}&quot;&gt;&apos; +
+                &apos;&lt;h3 class=&quot;title&quot;&gt;{name}&lt;/h3&gt;&apos; +
+                &apos;&lt;span class=&quot;type&quot;&gt;{resultType}&lt;/span&gt;&apos; +
+                &apos;&lt;div class=&quot;description&quot;&gt;{description}&lt;/div&gt;&apos; +
+                &apos;&lt;span class=&quot;className&quot;&gt;{class}&lt;/span&gt;&apos; +
+            &apos;&lt;/a&gt;&apos; +
+        &apos;&lt;/li&gt;&apos;,
+
+    // -- Initializer ----------------------------------------------------------
+    initializer: function () {
+        this._bindUIACBase();
+        this._syncUIACBase();
+    },
+
+    // -- Protected Methods ----------------------------------------------------
+    _apiResultFilter: function (query, results) {
+        // Filter components out of the results.
+        return YArray.filter(results, function (result) {
+            return result.raw.resultType === &apos;component&apos; ? false : result;
+        });
+    },
+
+    _apiResultFormatter: function (query, results) {
+        return YArray.map(results, function (result) {
+            var raw  = Y.merge(result.raw), // create a copy
+                desc = raw.description || &apos;&apos;;
+
+            // Convert description to text and truncate it if necessary.
+            desc = Node.create(&apos;&lt;div&gt;&apos; + desc + &apos;&lt;/div&gt;&apos;).get(&apos;text&apos;);
+
+            if (desc.length &gt; 65) {
+                desc = Y.Escape.html(desc.substr(0, 65)) + &apos; &amp;hellip;&apos;;
+            } else {
+                desc = Y.Escape.html(desc);
+            }
+
+            raw[&apos;class&apos;] || (raw[&apos;class&apos;] = &apos;&apos;);
+            raw.description = desc;
+
+            // Use the highlighted result name.
+            raw.name = result.highlighted;
+
+            return Lang.sub(this.RESULT_TEMPLATE, raw);
+        }, this);
+    },
+
+    _apiTextLocator: function (result) {
+        return result.displayName || result.name;
+    }
+}, {
+    // -- Attributes -----------------------------------------------------------
+    ATTRS: {
+        resultFormatter: {
+            valueFn: function () {
+                return this._apiResultFormatter;
+            }
+        },
+
+        resultFilters: {
+            valueFn: function () {
+                return this._apiResultFilter;
+            }
+        },
+
+        resultHighlighter: {
+            value: &apos;phraseMatch&apos;
+        },
+
+        resultListLocator: {
+            value: &apos;data.results&apos;
+        },
+
+        resultTextLocator: {
+            valueFn: function () {
+                return this._apiTextLocator;
+            }
+        },
+
+        source: {
+            value: &apos;/api/v1/search?q={query}&amp;count={maxResults}&apos;
+        }
+    }
+});
+
+}, &apos;3.4.0&apos;, {requires: [
+    &apos;autocomplete-base&apos;, &apos;autocomplete-highlighters&apos;, &apos;autocomplete-sources&apos;,
+    &apos;escape&apos;
+]});
+</code></pre>
+
+</div>
+
+<footer class="footer">
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(1.0.4)</span><img src="./image/esdoc-logo-mini-black.png"></a>
+</footer>
+
+<script src="script/search_index.js"></script>
+<script src="script/search.js"></script>
+<script src="script/pretty-print.js"></script>
+<script src="script/inherited-summary.js"></script>
+<script src="script/test-summary.js"></script>
+<script src="script/inner-link.js"></script>
+<script src="script/patch-for-local.js"></script>
+</body>
+</html>

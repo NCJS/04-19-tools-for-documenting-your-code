@@ -1,0 +1,43 @@
+{
+  "coverage": "55.55%",
+  "expectCount": 18,
+  "actualCount": 10,
+  "files": {
+    "sample code/a.js": {
+      "expectCount": 3,
+      "actualCount": 3,
+      "undocumentLines": []
+    },
+    "sample code/b.js": {
+      "expectCount": 8,
+      "actualCount": 5,
+      "undocumentLines": [
+        26,
+        27,
+        28
+      ]
+    },
+    "sample code/c.js": {
+      "expectCount": 1,
+      "actualCount": 1,
+      "undocumentLines": []
+    },
+    "sample code/docs/scripts/prettify/prettify.js": {
+      "expectCount": 1,
+      "actualCount": 0,
+      "undocumentLines": [
+        1
+      ]
+    },
+    "sample code/index.js": {
+      "expectCount": 5,
+      "actualCount": 1,
+      "undocumentLines": [
+        6,
+        9,
+        11,
+        13
+      ]
+    }
+  }
+}

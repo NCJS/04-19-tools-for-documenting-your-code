@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <base data-ice="baseUrl" href="../../../../../">
+  <title data-ice="title">sample code/yuidocs/assets/js/api-list.js | jsdoc-talk-ncjs</title>
+  <link type="text/css" rel="stylesheet" href="css/style.css">
+  <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
+  <script src="script/prettify/prettify.js"></script>
+  <script src="script/manual.js"></script>
+</head>
+<body class="layout-container" data-ice="rootContainer">
+
+<header>
+  <a href="./">Home</a>
+  
+  <a href="identifiers.html">Reference</a>
+  <a href="source.html">Source</a>
+  
+  <div class="search-box">
+  <span>
+    <img src="./image/search.png">
+    <span class="search-input-edge"></span><input class="search-input"><span class="search-input-edge"></span>
+  </span>
+    <ul class="search-result"></ul>
+  </div>
+</header>
+
+<nav class="navigation" data-ice="nav"><div>
+  <ul>
+    
+  <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-dayInGerman">dayInGerman</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-joinArr">joinArr</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-sum">sum</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-times10">times10</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-Numberlike:">Numberlike:</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-StationVisit">StationVisit</a></span></span></li>
+</ul>
+</div>
+</nav>
+
+<div class="content" data-ice="content"><h1 data-ice="title">sample code/yuidocs/assets/js/api-list.js</h1>
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">YUI.add(&apos;api-list&apos;, function (Y) {
+
+var Lang   = Y.Lang,
+    YArray = Y.Array,
+
+    APIList = Y.namespace(&apos;APIList&apos;),
+
+    classesNode    = Y.one(&apos;#api-classes&apos;),
+    elementsNode   = Y.one(&apos;#api-elements&apos;),
+    inputNode      = Y.one(&apos;#api-filter&apos;),
+    modulesNode    = Y.one(&apos;#api-modules&apos;),
+    tabviewNode    = Y.one(&apos;#api-tabview&apos;),
+
+    tabs = APIList.tabs = {},
+
+    filter = APIList.filter = new Y.APIFilter({
+        inputNode : inputNode,
+        maxResults: 1000,
+
+        on: {
+            results: onFilterResults
+        }
+    }),
+
+    search = APIList.search = new Y.APISearch({
+        inputNode : inputNode,
+        maxResults: 100,
+
+        on: {
+            clear  : onSearchClear,
+            results: onSearchResults
+        }
+    }),
+
+    tabview = APIList.tabview = new Y.TabView({
+        srcNode  : tabviewNode,
+        panelNode: &apos;#api-tabview-panel&apos;,
+        render   : true,
+
+        on: {
+            selectionChange: onTabSelectionChange
+        }
+    }),
+
+    focusManager = APIList.focusManager = tabviewNode.plug(Y.Plugin.NodeFocusManager, {
+        circular   : true,
+        descendants: &apos;#api-filter, .yui3-tab-panel-selected .api-list-item a, .yui3-tab-panel-selected .result a&apos;,
+        keys       : {next: &apos;down:40&apos;, previous: &apos;down:38&apos;}
+    }).focusManager,
+
+    LIST_ITEM_TEMPLATE =
+        &apos;&lt;li class=&quot;api-list-item {typeSingular}&quot;&gt;&apos; +
+            &apos;&lt;a href=&quot;{rootPath}{typePlural}/{name}.html&quot;&gt;{displayName}&lt;/a&gt;&apos; +
+        &apos;&lt;/li&gt;&apos;;
+
+// -- Init ---------------------------------------------------------------------
+
+// Duckpunch FocusManager&apos;s key event handling to prevent it from handling key
+// events when a modifier is pressed.
+Y.before(function (e, activeDescendant) {
+    if (e.altKey || e.ctrlKey || e.metaKey || e.shiftKey) {
+        return new Y.Do.Prevent();
+    }
+}, focusManager, &apos;_focusPrevious&apos;, focusManager);
+
+Y.before(function (e, activeDescendant) {
+    if (e.altKey || e.ctrlKey || e.metaKey || e.shiftKey) {
+        return new Y.Do.Prevent();
+    }
+}, focusManager, &apos;_focusNext&apos;, focusManager);
+
+// Create a mapping of tabs in the tabview so we can refer to them easily later.
+tabview.each(function (tab, index) {
+    var name = tab.get(&apos;label&apos;).toLowerCase();
+
+    tabs[name] = {
+        index: index,
+        name : name,
+        tab  : tab
+    };
+});
+
+// Switch tabs on Ctrl/Cmd-Left/Right arrows.
+tabviewNode.on(&apos;key&apos;, onTabSwitchKey, &apos;down:37,39&apos;);
+
+// Focus the filter input when the `/` key is pressed.
+Y.one(Y.config.doc).on(&apos;key&apos;, onSearchKey, &apos;down:83&apos;);
+
+// Keep the Focus Manager up to date.
+inputNode.on(&apos;focus&apos;, function () {
+    focusManager.set(&apos;activeDescendant&apos;, inputNode);
+});
+
+// Update all tabview links to resolved URLs.
+tabview.get(&apos;panelNode&apos;).all(&apos;a&apos;).each(function (link) {
+    link.setAttribute(&apos;href&apos;, link.get(&apos;href&apos;));
+});
+
+// -- Private Functions --------------------------------------------------------
+function getFilterResultNode() {
+    var queryType = filter.get(&apos;queryType&apos;);
+    return queryType === &apos;classes&apos; ? classesNode
+            : queryType === &apos;elements&apos; ? elementsNode : modulesNode;
+}
+
+// -- Event Handlers -----------------------------------------------------------
+function onFilterResults(e) {
+    var frag         = Y.one(Y.config.doc.createDocumentFragment()),
+        resultNode   = getFilterResultNode(),
+        typePlural   = filter.get(&apos;queryType&apos;),
+        typeSingular = typePlural === &apos;classes&apos; ? &apos;class&apos; : typePlural === &apos;elements&apos; ? &apos;element&apos; : &apos;module&apos;;
+
+    if (e.results.length) {
+        YArray.each(e.results, function (result) {
+            frag.append(Lang.sub(LIST_ITEM_TEMPLATE, {
+                rootPath    : APIList.rootPath,
+                displayName : filter.getDisplayName(result.highlighted),
+                name        : result.text,
+                typePlural  : typePlural,
+                typeSingular: typeSingular
+            }));
+        });
+    } else {
+        frag.append(
+            &apos;&lt;li class=&quot;message&quot;&gt;&apos; +
+                &apos;No &apos; + typePlural + &apos; found.&apos; +
+            &apos;&lt;/li&gt;&apos;
+        );
+    }
+
+    resultNode.empty(true);
+    resultNode.append(frag);
+
+    focusManager.refresh();
+}
+
+function onSearchClear(e) {
+
+    focusManager.refresh();
+}
+
+function onSearchKey(e) {
+    var target = e.target;
+
+    if (target.test(&apos;input,select,textarea&apos;)
+            || target.get(&apos;isContentEditable&apos;)) {
+        return;
+    }
+
+    e.preventDefault();
+
+    inputNode.focus();
+    focusManager.refresh();
+}
+
+function onSearchResults(e) {
+    var frag = Y.one(Y.config.doc.createDocumentFragment());
+
+    if (e.results.length) {
+        YArray.each(e.results, function (result) {
+            frag.append(result.display);
+        });
+    } else {
+        frag.append(
+            &apos;&lt;li class=&quot;message&quot;&gt;&apos; +
+                &apos;No results found. Maybe you\&apos;ll have better luck with a &apos; +
+                &apos;different query?&apos; +
+            &apos;&lt;/li&gt;&apos;
+        );
+    }
+
+
+    focusManager.refresh();
+}
+
+function onTabSelectionChange(e) {
+    var tab  = e.newVal,
+        name = tab.get(&apos;label&apos;).toLowerCase();
+
+    tabs.selected = {
+        index: tab.get(&apos;index&apos;),
+        name : name,
+        tab  : tab
+    };
+
+    switch (name) {
+    case &apos;elements&apos;:// fallthru
+    case &apos;classes&apos;: // fallthru
+    case &apos;modules&apos;:
+        filter.setAttrs({
+            minQueryLength: 0,
+            queryType     : name
+        });
+
+        search.set(&apos;minQueryLength&apos;, -1);
+
+        // Only send a request if this isn&apos;t the initially-selected tab.
+        if (e.prevVal) {
+            filter.sendRequest(filter.get(&apos;value&apos;));
+        }
+        break;
+
+    case &apos;everything&apos;:
+        filter.set(&apos;minQueryLength&apos;, -1);
+        search.set(&apos;minQueryLength&apos;, 1);
+
+        if (search.get(&apos;value&apos;)) {
+            search.sendRequest(search.get(&apos;value&apos;));
+        } else {
+            inputNode.focus();
+        }
+        break;
+
+    default:
+        // WTF? We shouldn&apos;t be here!
+        filter.set(&apos;minQueryLength&apos;, -1);
+        search.set(&apos;minQueryLength&apos;, -1);
+    }
+
+    if (focusManager) {
+        setTimeout(function () {
+            focusManager.refresh();
+        }, 1);
+    }
+}
+
+function onTabSwitchKey(e) {
+    var currentTabIndex = tabs.selected.index;
+
+    if (!(e.ctrlKey || e.metaKey)) {
+        return;
+    }
+
+    e.preventDefault();
+
+    switch (e.keyCode) {
+    case 37: // left arrow
+        if (currentTabIndex &gt; 0) {
+            tabview.selectChild(currentTabIndex - 1);
+            inputNode.focus();
+        }
+        break;
+
+    case 39: // right arrow
+        if (currentTabIndex &lt; (Y.Object.size(tabs) - 2)) {
+            tabview.selectChild(currentTabIndex + 1);
+            inputNode.focus();
+        }
+        break;
+    }
+}
+
+}, &apos;3.4.0&apos;, {requires: [
+    &apos;api-filter&apos;, &apos;api-search&apos;, &apos;event-key&apos;, &apos;node-focusmanager&apos;, &apos;tabview&apos;
+]});
+</code></pre>
+
+</div>
+
+<footer class="footer">
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(1.0.4)</span><img src="./image/esdoc-logo-mini-black.png"></a>
+</footer>
+
+<script src="script/search_index.js"></script>
+<script src="script/search.js"></script>
+<script src="script/pretty-print.js"></script>
+<script src="script/inherited-summary.js"></script>
+<script src="script/test-summary.js"></script>
+<script src="script/inner-link.js"></script>
+<script src="script/patch-for-local.js"></script>
+</body>
+</html>

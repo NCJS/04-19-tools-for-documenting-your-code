@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <base data-ice="baseUrl" href="../../../../../">
+  <title data-ice="title">sample code/yuidocs/assets/js/apidocs.js | jsdoc-talk-ncjs</title>
+  <link type="text/css" rel="stylesheet" href="css/style.css">
+  <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
+  <script src="script/prettify/prettify.js"></script>
+  <script src="script/manual.js"></script>
+</head>
+<body class="layout-container" data-ice="rootContainer">
+
+<header>
+  <a href="./">Home</a>
+  
+  <a href="identifiers.html">Reference</a>
+  <a href="source.html">Source</a>
+  
+  <div class="search-box">
+  <span>
+    <img src="./image/search.png">
+    <span class="search-input-edge"></span><input class="search-input"><span class="search-input-edge"></span>
+  </span>
+    <ul class="search-result"></ul>
+  </div>
+</header>
+
+<nav class="navigation" data-ice="nav"><div>
+  <ul>
+    
+  <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-dayInGerman">dayInGerman</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-joinArr">joinArr</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-sum">sum</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-times10">times10</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-Numberlike:">Numberlike:</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-StationVisit">StationVisit</a></span></span></li>
+</ul>
+</div>
+</nav>
+
+<div class="content" data-ice="content"><h1 data-ice="title">sample code/yuidocs/assets/js/apidocs.js</h1>
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">YUI().use(
+    &apos;yuidoc-meta&apos;,
+    &apos;api-list&apos;, &apos;history-hash&apos;, &apos;node-screen&apos;, &apos;node-style&apos;, &apos;pjax&apos;,
+function (Y) {
+
+var win          = Y.config.win,
+    localStorage = win.localStorage,
+
+    bdNode = Y.one(&apos;#bd&apos;),
+
+    pjax,
+    defaultRoute,
+
+    classTabView,
+    selectedTab;
+
+// Kill pjax functionality unless serving over HTTP.
+if (!Y.getLocation().protocol.match(/^https?\:/)) {
+    Y.Router.html5 = false;
+}
+
+// Create the default route with middleware which enables syntax highlighting
+// on the loaded content.
+defaultRoute = Y.Pjax.defaultRoute.concat(function (req, res, next) {
+    prettyPrint();
+    bdNode.removeClass(&apos;loading&apos;);
+
+    next();
+});
+
+pjax = new Y.Pjax({
+    container      : &apos;#docs-main&apos;,
+    contentSelector: &apos;#docs-main &gt; .content&apos;,
+    linkSelector   : &apos;#bd a&apos;,
+    titleSelector  : &apos;#xhr-title&apos;,
+
+    navigateOnHash: true,
+    root          : &apos;/&apos;,
+    routes        : [
+        // -- / ----------------------------------------------------------------
+        {
+            path     : &apos;/(index.html)?&apos;,
+            callbacks: defaultRoute
+        },
+
+        // -- /elements/* -------------------------------------------------------
+        {
+            path     : &apos;/elements/:element.html*&apos;,
+            callbacks: defaultRoute
+        },
+
+        // -- /classes/* -------------------------------------------------------
+        {
+            path     : &apos;/classes/:class.html*&apos;,
+            callbacks: [defaultRoute, &apos;handleClasses&apos;]
+        },
+
+        // -- /files/* ---------------------------------------------------------
+        {
+            path     : &apos;/files/*file&apos;,
+            callbacks: [defaultRoute, &apos;handleFiles&apos;]
+        },
+
+        // -- /modules/* -------------------------------------------------------
+        {
+            path     : &apos;/modules/:module.html*&apos;,
+            callbacks: defaultRoute
+        }
+    ]
+});
+
+// -- Utility Functions --------------------------------------------------------
+
+pjax.checkVisibility = function (tab) {
+    tab || (tab = selectedTab);
+
+    if (!tab) { return; }
+
+    var panelNode = tab.get(&apos;panelNode&apos;),
+        visibleItems;
+
+    // If no items are visible in the tab panel due to the current visibility
+    // settings, display a message to that effect.
+    visibleItems = panelNode.all(&apos;.item,.index-item&apos;).some(function (itemNode) {
+        if (itemNode.getComputedStyle(&apos;display&apos;) !== &apos;none&apos;) {
+            return true;
+        }
+    });
+
+    panelNode.all(&apos;.no-visible-items&apos;).remove();
+
+    if (!visibleItems) {
+        if (Y.one(&apos;#index .index-item&apos;)) {
+            panelNode.append(
+                &apos;&lt;div class=&quot;no-visible-items&quot;&gt;&apos; +
+                    &apos;&lt;p&gt;&apos; +
+                    &apos;Some items are not shown due to the current visibility &apos; +
+                    &apos;settings. Use the checkboxes at the upper right of this &apos; +
+                    &apos;page to change the visibility settings.&apos; +
+                    &apos;&lt;/p&gt;&apos; +
+                &apos;&lt;/div&gt;&apos;
+            );
+        } else {
+            panelNode.append(
+                &apos;&lt;div class=&quot;no-visible-items&quot;&gt;&apos; +
+                    &apos;&lt;p&gt;&apos; +
+                    &apos;This class doesn\&apos;t provide any methods, properties, &apos; +
+                    &apos;attributes, or events.&apos; +
+                    &apos;&lt;/p&gt;&apos; +
+                &apos;&lt;/div&gt;&apos;
+            );
+        }
+    }
+
+    // Hide index sections without any visible items.
+    Y.all(&apos;.index-section&apos;).each(function (section) {
+        var items        = 0,
+            visibleItems = 0;
+
+        section.all(&apos;.index-item&apos;).each(function (itemNode) {
+            items += 1;
+
+            if (itemNode.getComputedStyle(&apos;display&apos;) !== &apos;none&apos;) {
+                visibleItems += 1;
+            }
+        });
+
+        section.toggleClass(&apos;hidden&apos;, !visibleItems);
+        section.toggleClass(&apos;no-columns&apos;, visibleItems &lt; 4);
+    });
+};
+
+pjax.initClassTabView = function () {
+    if (!Y.all(&apos;#classdocs .api-class-tab&apos;).size()) {
+        return;
+    }
+
+    if (classTabView) {
+        classTabView.destroy();
+        selectedTab = null;
+    }
+
+    classTabView = new Y.TabView({
+        srcNode: &apos;#classdocs&apos;,
+
+        on: {
+            selectionChange: pjax.onTabSelectionChange
+        }
+    });
+
+    pjax.updateTabState();
+    classTabView.render();
+};
+
+pjax.initLineNumbers = function () {
+    var hash      = win.location.hash.substring(1),
+        container = pjax.get(&apos;container&apos;),
+        hasLines, node;
+
+    // Add ids for each line number in the file source view.
+    container.all(&apos;.linenums&gt;li&apos;).each(function (lineNode, index) {
+        lineNode.set(&apos;id&apos;, &apos;l&apos; + (index + 1));
+        lineNode.addClass(&apos;file-line&apos;);
+        hasLines = true;
+    });
+
+    // Scroll to the desired line.
+    if (hasLines &amp;&amp; /^l\d+$/.test(hash)) {
+        if ((node = container.getById(hash))) {
+            win.scroll(0, node.getY());
+        }
+    }
+};
+
+pjax.initRoot = function () {
+    var terminators = /^(?:classes|files|elements|modules)$/,
+        parts       = pjax._getPathRoot().split(&apos;/&apos;),
+        root        = [],
+        i, len, part;
+
+    for (i = 0, len = parts.length; i &lt; len; i += 1) {
+        part = parts[i];
+
+        if (part.match(terminators)) {
+            // Makes sure the path will end with a &quot;/&quot;.
+            root.push(&apos;&apos;);
+            break;
+        }
+
+        root.push(part);
+    }
+
+    pjax.set(&apos;root&apos;, root.join(&apos;/&apos;));
+};
+
+pjax.updateTabState = function (src) {
+    var hash = win.location.hash.substring(1),
+        defaultTab, node, tab, tabPanel;
+
+    function scrollToNode() {
+        if (node.hasClass(&apos;protected&apos;)) {
+            Y.one(&apos;#api-show-protected&apos;).set(&apos;checked&apos;, true);
+            pjax.updateVisibility();
+        }
+
+        if (node.hasClass(&apos;private&apos;)) {
+            Y.one(&apos;#api-show-private&apos;).set(&apos;checked&apos;, true);
+            pjax.updateVisibility();
+        }
+
+        setTimeout(function () {
+            // For some reason, unless we re-get the node instance here,
+            // getY() always returns 0.
+            var node = Y.one(&apos;#classdocs&apos;).getById(hash);
+            win.scrollTo(0, node.getY() - 70);
+        }, 1);
+    }
+
+    if (!classTabView) {
+        return;
+    }
+
+    if (src === &apos;hashchange&apos; &amp;&amp; !hash) {
+        defaultTab = &apos;index&apos;;
+    } else {
+        if (localStorage) {
+            defaultTab = localStorage.getItem(&apos;tab_&apos; + pjax.getPath()) ||
+                &apos;index&apos;;
+        } else {
+            defaultTab = &apos;index&apos;;
+        }
+    }
+
+    if (hash &amp;&amp; (node = Y.one(&apos;#classdocs&apos;).getById(hash))) {
+        if ((tabPanel = node.ancestor(&apos;.api-class-tabpanel&apos;, true))) {
+            if ((tab = Y.one(&apos;#classdocs .api-class-tab.&apos; + tabPanel.get(&apos;id&apos;)))) {
+                if (classTabView.get(&apos;rendered&apos;)) {
+                    Y.Widget.getByNode(tab).set(&apos;selected&apos;, 1);
+                } else {
+                    tab.addClass(&apos;yui3-tab-selected&apos;);
+                }
+            }
+        }
+
+        // Scroll to the desired element if this is a hash URL.
+        if (node) {
+            if (classTabView.get(&apos;rendered&apos;)) {
+                scrollToNode();
+            } else {
+                classTabView.once(&apos;renderedChange&apos;, scrollToNode);
+            }
+        }
+    } else {
+        tab = Y.one(&apos;#classdocs .api-class-tab.&apos; + defaultTab);
+
+        // When the `defaultTab` node isn&apos;t found, `localStorage` is stale.
+        if (!tab &amp;&amp; defaultTab !== &apos;index&apos;) {
+            tab = Y.one(&apos;#classdocs .api-class-tab.index&apos;);
+        }
+
+        if (classTabView.get(&apos;rendered&apos;)) {
+            Y.Widget.getByNode(tab).set(&apos;selected&apos;, 1);
+        } else {
+            tab.addClass(&apos;yui3-tab-selected&apos;);
+        }
+    }
+};
+
+pjax.updateVisibility = function () {
+    var container = pjax.get(&apos;container&apos;);
+
+    container.toggleClass(&apos;hide-inherited&apos;,
+            !Y.one(&apos;#api-show-inherited&apos;).get(&apos;checked&apos;));
+
+    container.toggleClass(&apos;show-deprecated&apos;,
+            Y.one(&apos;#api-show-deprecated&apos;).get(&apos;checked&apos;));
+
+    container.toggleClass(&apos;show-protected&apos;,
+            Y.one(&apos;#api-show-protected&apos;).get(&apos;checked&apos;));
+
+    container.toggleClass(&apos;show-private&apos;,
+            Y.one(&apos;#api-show-private&apos;).get(&apos;checked&apos;));
+
+    pjax.checkVisibility();
+};
+
+// -- Route Handlers -----------------------------------------------------------
+
+pjax.handleClasses = function (req, res, next) {
+    var status = res.ioResponse.status;
+
+    // Handles success and local filesystem XHRs.
+    if (res.ioResponse.readyState === 4 &amp;&amp; (!status || (status &gt;= 200 &amp;&amp; status &lt; 300))) {
+        pjax.initClassTabView();
+    }
+
+    next();
+};
+
+pjax.handleFiles = function (req, res, next) {
+    var status = res.ioResponse.status;
+
+    // Handles success and local filesystem XHRs.
+    if (res.ioResponse.readyState === 4 &amp;&amp; (!status || (status &gt;= 200 &amp;&amp; status &lt; 300))) {
+        pjax.initLineNumbers();
+    }
+
+    next();
+};
+
+// -- Event Handlers -----------------------------------------------------------
+
+pjax.onNavigate = function (e) {
+    var hash         = e.hash,
+        originTarget = e.originEvent &amp;&amp; e.originEvent.target,
+        tab;
+
+    if (hash) {
+        tab = originTarget &amp;&amp; originTarget.ancestor(&apos;.yui3-tab&apos;, true);
+
+        if (hash === win.location.hash) {
+            pjax.updateTabState(&apos;hashchange&apos;);
+        } else if (!tab) {
+            win.location.hash = hash;
+        }
+
+        e.preventDefault();
+        return;
+    }
+
+    // Only scroll to the top of the page when the URL doesn&apos;t have a hash.
+    this.set(&apos;scrollToTop&apos;, !e.url.match(/#.+$/));
+
+    bdNode.addClass(&apos;loading&apos;);
+};
+
+pjax.onOptionClick = function (e) {
+    pjax.updateVisibility();
+};
+
+pjax.onTabSelectionChange = function (e) {
+    var tab   = e.newVal,
+        tabId = tab.get(&apos;contentBox&apos;).getAttribute(&apos;href&apos;).substring(1);
+
+    selectedTab = tab;
+
+    // If switching from a previous tab (i.e., this is not the default tab),
+    // replace the history entry with a hash URL that will cause this tab to
+    // be selected if the user navigates away and then returns using the back
+    // or forward buttons.
+    if (e.prevVal &amp;&amp; localStorage) {
+        localStorage.setItem(&apos;tab_&apos; + pjax.getPath(), tabId);
+    }
+
+    pjax.checkVisibility(tab);
+};
+
+// -- Init ---------------------------------------------------------------------
+
+pjax.on(&apos;navigate&apos;, pjax.onNavigate);
+
+pjax.initRoot();
+pjax.upgrade();
+pjax.initClassTabView();
+pjax.initLineNumbers();
+pjax.updateVisibility();
+
+Y.APIList.rootPath = pjax.get(&apos;root&apos;);
+
+Y.one(&apos;#api-options&apos;).delegate(&apos;click&apos;, pjax.onOptionClick, &apos;input&apos;);
+
+Y.on(&apos;hashchange&apos;, function (e) {
+    pjax.updateTabState(&apos;hashchange&apos;);
+}, win);
+
+});
+</code></pre>
+
+</div>
+
+<footer class="footer">
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(1.0.4)</span><img src="./image/esdoc-logo-mini-black.png"></a>
+</footer>
+
+<script src="script/search_index.js"></script>
+<script src="script/search.js"></script>
+<script src="script/pretty-print.js"></script>
+<script src="script/inherited-summary.js"></script>
+<script src="script/test-summary.js"></script>
+<script src="script/inner-link.js"></script>
+<script src="script/patch-for-local.js"></script>
+</body>
+</html>
