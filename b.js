@@ -10,12 +10,23 @@ export function times10(a) {
 }
 
 /**
+ * simply returns a, which takes a default value of 100
+ *
+ * @export defaultValue
+ * @param {number} [a=100]
+ * @returns {number} simple return of a
+ */
+export function defaultValue(a = 100) {
+  return a;
+}
+
+/**
  *
  * constructs a Polygon
  *
  * @class Polygon
  */
-class Polygon {
+export class Polygon {
   /**
    * Creates an instance of Polygon.
    * @param {Number} height - height of Polygon

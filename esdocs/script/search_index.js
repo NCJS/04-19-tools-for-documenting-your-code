@@ -1,8 +1,26 @@
 window.esdocSearchIndex = [
   [
+    "jsdoc-talk-ncjs/sample code/b.js~polygon",
+    "class/sample code/b.js~Polygon.html",
+    "<span>Polygon</span> <span class=\"search-result-import-path\">jsdoc-talk-ncjs/sample code/b.js</span>",
+    "class"
+  ],
+  [
     "jsdoc-talk-ncjs/sample code/a.js~dayingerman",
     "function/index.html#static-function-dayInGerman",
     "<span>dayInGerman</span> <span class=\"search-result-import-path\">jsdoc-talk-ncjs/sample code/a.js</span>",
+    "function"
+  ],
+  [
+    "jsdoc-talk-ncjs/sample code/b.js~defaultvalue",
+    "function/index.html#static-function-defaultValue",
+    "<span>defaultValue</span> <span class=\"search-result-import-path\">jsdoc-talk-ncjs/sample code/b.js</span>",
+    "function"
+  ],
+  [
+    "jsdoc-talk-ncjs/sample code/c.js~foo",
+    "function/index.html#static-function-foo",
+    "<span>foo</span> <span class=\"search-result-import-path\">jsdoc-talk-ncjs/sample code/c.js</span>",
     "function"
   ],
   [
@@ -318,15 +336,51 @@ window.esdocSearchIndex = [
     "file"
   ],
   [
+    "sample code/b.js~polygon#constructor",
+    "class/sample code/b.js~Polygon.html#instance-constructor-constructor",
+    "sample code/b.js~Polygon#constructor",
+    "method"
+  ],
+  [
+    "sample code/b.js~polygon#height",
+    "class/sample code/b.js~Polygon.html#instance-member-height",
+    "sample code/b.js~Polygon#height",
+    "member"
+  ],
+  [
+    "sample code/b.js~polygon#name",
+    "class/sample code/b.js~Polygon.html#instance-member-name",
+    "sample code/b.js~Polygon#name",
+    "member"
+  ],
+  [
+    "sample code/b.js~polygon#sayhistory",
+    "class/sample code/b.js~Polygon.html#instance-method-sayHistory",
+    "sample code/b.js~Polygon#sayHistory",
+    "method"
+  ],
+  [
+    "sample code/b.js~polygon#sayname",
+    "class/sample code/b.js~Polygon.html#instance-method-sayName",
+    "sample code/b.js~Polygon#sayName",
+    "method"
+  ],
+  [
+    "sample code/b.js~polygon#width",
+    "class/sample code/b.js~Polygon.html#instance-member-width",
+    "sample code/b.js~Polygon#width",
+    "member"
+  ],
+  [
     "sample code/c.js",
     "file/sample code/c.js.html",
     "sample code/c.js",
     "file"
   ],
   [
-    "sample code/c.js~numberlike:",
-    "typedef/index.html#static-typedef-Numberlike:",
-    "sample code/c.js~Numberlike:",
+    "sample code/c.js~numberlike",
+    "typedef/index.html#static-typedef-Numberlike",
+    "sample code/c.js~Numberlike",
     "typedef"
   ],
   [

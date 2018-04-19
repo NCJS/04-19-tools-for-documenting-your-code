@@ -1,34 +1,20 @@
 /**
- * @typedef {number|string} Numberlike: Number in *number* of *string*  <b>format</b>
+ * @typedef {number|string} Numberlike - Number in *number* of *string*  <b>format</b>
  */
 
 /**
- * Secret
- * @namespace secret
+ * Returns 100 either a number or a string
+ *
+ * @export foo()
+ * @returns {Numberlike} 100 either as a number or a string
  */
-const secret = {
-  /**
-   * 50/50 it's a string
-   *
-   * @returns {Numberlike}
-   */
-  foo: function() {
-    if (Math.random() > 0.5) {
-      return "100";
-    } else {
-      return 100;
-    }
-  },
-  /**
-   * bar
-   *
-   * @param {string} title Your preferred title
-   * @returns {string} elaborate title
-   */
-  bar: function(title) {
-    return title + "bar";
+export function foo() {
+  if (Math.random() > 0.5) {
+    return "100";
+  } else {
+    return 100;
   }
-};
+}
 
 /**
  * @global

@@ -1,7 +1,8 @@
 import _ from "lodash";
 import * as ss from "simple-statistics";
-import { test } from "./b";
 import { sum, joinArr, dayInGerman } from "./a";
+import { time10, defaultValue, Polygon } from "./b";
+import { foo } from "./c";
 
 let con = _.concat([1], [3, 2, 4]);
 console.log(con);

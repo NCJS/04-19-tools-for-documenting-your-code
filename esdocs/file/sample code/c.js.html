@@ -29,11 +29,14 @@
 <nav class="navigation" data-ice="nav"><div>
   <ul>
     
-  <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-dayInGerman">dayInGerman</a></span></span></li>
+  <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/sample code/b.js~Polygon.html">Polygon</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-dayInGerman">dayInGerman</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-joinArr">joinArr</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-sum">sum</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-defaultValue">defaultValue</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-times10">times10</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-Numberlike:">Numberlike:</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-foo">foo</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-Numberlike">Numberlike</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-StationVisit">StationVisit</a></span></span></li>
 </ul>
 </div>
@@ -41,36 +44,22 @@
 
 <div class="content" data-ice="content"><h1 data-ice="title">sample code/c.js</h1>
 <pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">/**
- * @typedef {number|string} Numberlike: Number in *number* of *string*  &lt;b&gt;format&lt;/b&gt;
+ * @typedef {number|string} Numberlike - Number in *number* of *string*  &lt;b&gt;format&lt;/b&gt;
  */
 
 /**
- * Secret
- * @namespace secret
+ * Returns 100 either a number or a string
+ *
+ * @export foo()
+ * @returns {Numberlike} 100 either as a number or a string
  */
-const secret = {
-  /**
-   * 50/50 it&apos;s a string
-   *
-   * @returns {Numberlike}
-   */
-  foo: function() {
-    if (Math.random() &gt; 0.5) {
-      return &quot;100&quot;;
-    } else {
-      return 100;
-    }
-  },
-  /**
-   * bar
-   *
-   * @param {string} title Your preferred title
-   * @returns {string} elaborate title
-   */
-  bar: function(title) {
-    return title + &quot;bar&quot;;
+export function foo() {
+  if (Math.random() &gt; 0.5) {
+    return &quot;100&quot;;
+  } else {
+    return 100;
   }
-};
+}
 
 /**
  * @global
